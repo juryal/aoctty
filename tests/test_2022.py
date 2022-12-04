@@ -63,3 +63,9 @@ class TestDayFour(unittest.TestCase):
             day_04.part_one(self.test_input),
             (2),
         )
+
+    def test_part_two(self):
+        self.assertEqual(
+            day_04.part_two(self.test_input),
+            (4),
+        )
