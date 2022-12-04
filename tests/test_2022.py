@@ -52,3 +52,14 @@ class TestDayThree(unittest.TestCase):
             day_03.part_two(self.test_input),
             (70),
         )
+
+
+class TestDayFour(unittest.TestCase):
+    def setUp(self):
+        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_04.txt")
+
+    def test_part_one(self):
+        self.assertEqual(
+            day_04.part_one(self.test_input),
+            (2),
+        )
