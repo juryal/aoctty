@@ -69,3 +69,29 @@ class TestDayFour(unittest.TestCase):
             day_04.part_two(self.test_input),
             (4),
         )
+
+
+class TestDayFive(unittest.TestCase):
+    from collections import deque
+
+    def setUp(self):
+        self.test_list = [
+            "    [D]    ",
+            "[N] [C]    ",
+            "[Z] [M] [P]",
+            " 1   2   3 ",
+            "",
+            "move 1 from 2 to 1",
+            "move 3 from 1 to 3",
+            "move 2 from 2 to 1",
+            "move 1 from 1 to 2",
+        ]
+
+    def test_split_list(self):
+        self.assertEqual(day_05._split_list(self.test_list), (4))
+
+    def test_assemble_stacks(self):
+        self.assertEqual(
+            day_05.assemble_stacks(self.test_list[0:3]),
+            ([self.deque(["Z", "N"]), self.deque(["M", "C", "D"]), self.deque(["P"])]),
+        )
