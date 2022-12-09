@@ -99,3 +99,14 @@ class TestDayFive(unittest.TestCase):
 
     def test_part_one(self):
         self.assertEqual(day_05.part_one(self.test_input), ("CMZ"))
+
+
+class TestDaySix(unittest.TestCase):
+    def setUp(self):
+        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_06.txt")
+
+    def test_part_one(self):
+        self.assertEqual(
+            day_06.part_one(self.test_input),
+            (10),
+        )
