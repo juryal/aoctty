@@ -86,6 +86,7 @@ class TestDayFive(unittest.TestCase):
             "move 2 from 2 to 1",
             "move 1 from 1 to 2",
         ]
+        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_05.txt")
 
     def test_split_list(self):
         self.assertEqual(day_05._split_list(self.test_list), (4))
@@ -95,3 +96,6 @@ class TestDayFive(unittest.TestCase):
             day_05.assemble_stacks(self.test_list[0:3]),
             ([self.deque(["Z", "N"]), self.deque(["M", "C", "D"]), self.deque(["P"])]),
         )
+
+    def test_part_one(self):
+        self.assertEqual(day_05.part_one(self.test_input), ("CMZ"))
