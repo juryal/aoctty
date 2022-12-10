@@ -110,3 +110,30 @@ class TestDaySix(unittest.TestCase):
             day_06.part_one(self.test_input),
             (10),
         )
+
+
+class TestDayTen(unittest.TestCase):
+    def setUp(self):
+        self.CPU = day_10.SimpleCPU([20, 60, 100, 140, 180, 220])
+
+    def test_load_operation(self):
+        self.CPU.load_operation("addx -7")
+        self.assertEqual(
+            self.CPU.operation,
+            {"adjustment": -7, "counter": 2},
+        )
+
+    def test_run_operation(self):
+        self.CPU.load_operation("addx -7")
+        self.CPU.run_operation()
+        self.assertEqual(
+            self.CPU.register,
+            -6,
+        )
+
+    def test_part_one(self):
+        import aoctty.utils.read_puzzle as read_puzzle
+
+        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_10.txt")
+        self.CPU.process_instructions(read_puzzle.get_raw_puzzle(self.test_input))
+        self.assertEqual(self.CPU.signal_strength, 13140)
