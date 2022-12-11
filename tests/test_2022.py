@@ -1,6 +1,7 @@
 import unittest
 import pathlib
 from aoctty.year2022 import *
+import aoctty.utils.read_puzzle as read_puzzle
 
 
 class TestDayOne(unittest.TestCase):
@@ -132,8 +133,37 @@ class TestDayTen(unittest.TestCase):
         )
 
     def test_part_one(self):
-        import aoctty.utils.read_puzzle as read_puzzle
 
         self.test_input = pathlib.Path(__file__).parent.joinpath("2022_10.txt")
         self.CPU.process_instructions(read_puzzle.get_raw_puzzle(self.test_input))
         self.assertEqual(self.CPU.signal_strength, 13140)
+
+
+class TestDayEleven(unittest.TestCase):
+    def setUp(self):
+
+        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_11.txt")
+
+    def test_part_one(self):
+        keepaway1 = day_11.KeepAway(read_puzzle.get_raw_puzzle(self.test_input))
+        for x in range(20):
+            keepaway1.run_round()
+            print(keepaway1.monkey_business())
+
+        self.assertEqual(
+            keepaway1.monkey_business(),
+            10605,
+        )
+
+    def test_part_two(self):
+        keepaway1 = day_11.KeepAway(
+            read_puzzle.get_raw_puzzle(self.test_input), part_two=True
+        )
+        for x in range(10000):
+            keepaway1.run_round()
+            print(keepaway1.monkey_business())
+
+        self.assertEqual(
+            keepaway1.monkey_business(),
+            2713310158,
+        )
