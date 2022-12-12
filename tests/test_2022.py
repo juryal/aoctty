@@ -113,6 +113,40 @@ class TestDaySix(unittest.TestCase):
         )
 
 
+class TestDayNine(unittest.TestCase):
+    def setUp(self):
+
+        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_09.txt")
+
+    def test_part_one(self):
+        rope = day_09.Rope()
+        rope.move_head(read_puzzle.get_raw_puzzle(self.test_input))
+        self.assertEqual(
+            rope.count_positions(),
+            13,
+        )
+
+    def test_part_two(self):
+        rope = day_09.Rope(9)
+        rope.move_head(read_puzzle.get_raw_puzzle(self.test_input))
+        self.assertEqual(
+            rope.count_positions(),
+            1,
+        )
+
+    def test_part_two_longer(self):
+        rope = day_09.Rope(9)
+        rope.move_head(
+            read_puzzle.get_raw_puzzle(
+                pathlib.Path(__file__).parent.joinpath("2022/2022_09b.txt")
+            )
+        )
+        self.assertEqual(
+            rope.count_positions(),
+            36,
+        )
+
+
 class TestDayTen(unittest.TestCase):
     def setUp(self):
         self.CPU = day_10.SimpleCPU([20, 60, 100, 140, 180, 220])
