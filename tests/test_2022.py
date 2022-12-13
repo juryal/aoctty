@@ -201,3 +201,24 @@ class TestDayEleven(unittest.TestCase):
             keepaway1.monkey_business(),
             2713310158,
         )
+
+
+class TestDayTwelve(unittest.TestCase):
+    def setUp(self):
+
+        self.test_input = pathlib.Path(__file__).parent.joinpath("2022/2022_12.txt")
+        self.elevationmap = day_12.ElevationMap(
+            read_puzzle.get_raw_puzzle(self.test_input)
+        )
+
+    def test_get_start_node(self):
+        self.assertEqual(self.elevationmap.get_start_node().name, (0, 0))
+
+    def test_get_end_node(self):
+        self.assertEqual(self.elevationmap.get_end_node().name, (5, 2))
+
+    def test_find_shortest_steps(self):
+        self.assertEqual(self.elevationmap.find_shortest_steps(), 31)
+
+    def test_find_hiking_trail(self):
+        self.assertEqual(self.elevationmap.find_hiking_trail(), 29)
