@@ -129,6 +129,29 @@ class TestDaySeven(unittest.TestCase):
         self.assertEqual(terminal.free_space(), 24933642)
 
 
+class TestDayEight(unittest.TestCase):
+    def setUp(self) -> None:
+        import aoctty.utils.read_puzzle
+
+        self.treemap = day_08.TreeMap(
+            aoctty.utils.read_puzzle.get_raw_puzzle(
+                pathlib.Path(__file__).parent.joinpath("2022/2022_08.txt")
+            )
+        )
+
+    def test_get_column(self):
+        self.assertEqual(self.treemap.get_column(2), ["3", "5", "3", "5", "3"])
+
+    def test_count_visible(self):
+        self.assertEqual(self.treemap.count_visible(), 21)
+
+    def test_site_lines(self):
+        self.assertEqual(self.treemap.count_site_lines(1, 2), 4)
+
+    def test_find_largest_view(self):
+        self.assertEqual(self.treemap.find_largest_view(), 8)
+
+
 class TestDayNine(unittest.TestCase):
     def setUp(self):
 
