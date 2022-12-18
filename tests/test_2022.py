@@ -113,6 +113,22 @@ class TestDaySix(unittest.TestCase):
         )
 
 
+class TestDaySeven(unittest.TestCase):
+    def test_directory_get_size(self):
+        directory = day_07.Directory("/")
+        self.assertEqual(directory.get_size(), 0)
+
+    def test_get_sum(self):
+        test_input = pathlib.Path(__file__).parent.joinpath("2022/2022_07.txt")
+        terminal = day_07.Terminal(read_puzzle.get_raw_puzzle(test_input))
+        self.assertEqual(terminal.get_sums(100000), 95437)
+
+    def test_free_space(self):
+        test_input = pathlib.Path(__file__).parent.joinpath("2022/2022_07.txt")
+        terminal = day_07.Terminal(read_puzzle.get_raw_puzzle(test_input))
+        self.assertEqual(terminal.free_space(), 24933642)
+
+
 class TestDayNine(unittest.TestCase):
     def setUp(self):
 
