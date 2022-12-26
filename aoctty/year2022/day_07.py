@@ -104,8 +104,8 @@ class Terminal:
 
 
 if __name__ == "__main__":
-    import aoctty.utils.read_puzzle
+    import aoctty.read_puzzle
 
-    terminal = Terminal(aoctty.utils.read_puzzle.get_raw_puzzle("puzzle.txt"))
+    terminal = Terminal(aoctty.read_puzzle.get_raw_puzzle("puzzle.txt"))
     print(terminal.get_sums(100000))
     print(terminal.free_space())

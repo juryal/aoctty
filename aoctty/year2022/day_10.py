@@ -36,9 +36,9 @@ class SimpleCPU:
 
 
 if __name__ == "__main__":
-    import aoctty.utils.read_puzzle
+    import aoctty.read_puzzle
 
     cpu = SimpleCPU(range(20, 221, 40))
-    puzzle_input = aoctty.utils.read_puzzle.get_raw_puzzle("puzzle.txt")
+    puzzle_input = aoctty.read_puzzle.get_raw_puzzle("puzzle.txt")
     cpu.process_instructions(puzzle_input)
     print(cpu.signal_strength)

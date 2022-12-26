@@ -1,7 +1,21 @@
 import unittest
 import pathlib
-from aoctty.year2022 import *
-import aoctty.utils.read_puzzle as read_puzzle
+from aoctty.year2022 import (
+    day_01,
+    day_02,
+    day_03,
+    day_04,
+    day_05,
+    day_06,
+    day_07,
+    day_08,
+    day_09,
+    day_10,
+    day_11,
+    day_12,
+    day_13,
+)
+import aoctty.read_puzzle as read_puzzle
 
 
 class TestDayOne(unittest.TestCase):
@@ -40,7 +54,7 @@ class TestDayTwo(unittest.TestCase):
 
 class TestDayThree(unittest.TestCase):
     def setUp(self):
-        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_03.txt")
+        self.test_input = str(pathlib.Path(__file__).parent.joinpath("2022_03.txt"))
 
     def test_part_one(self):
         self.assertEqual(
@@ -57,7 +71,7 @@ class TestDayThree(unittest.TestCase):
 
 class TestDayFour(unittest.TestCase):
     def setUp(self):
-        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_04.txt")
+        self.test_input = str(pathlib.Path(__file__).parent.joinpath("2022_04.txt"))
 
     def test_part_one(self):
         self.assertEqual(
@@ -87,7 +101,7 @@ class TestDayFive(unittest.TestCase):
             "move 2 from 2 to 1",
             "move 1 from 1 to 2",
         ]
-        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_05.txt")
+        self.test_input = str(pathlib.Path(__file__).parent.joinpath("2022_05.txt"))
 
     def test_split_list(self):
         self.assertEqual(day_05._split_list(self.test_list), (4))
@@ -104,7 +118,7 @@ class TestDayFive(unittest.TestCase):
 
 class TestDaySix(unittest.TestCase):
     def setUp(self):
-        self.test_input = pathlib.Path(__file__).parent.joinpath("2022_06.txt")
+        self.test_input = str(pathlib.Path(__file__).parent.joinpath("2022_06.txt"))
 
     def test_part_one(self):
         self.assertEqual(
@@ -131,10 +145,10 @@ class TestDaySeven(unittest.TestCase):
 
 class TestDayEight(unittest.TestCase):
     def setUp(self) -> None:
-        import aoctty.utils.read_puzzle
+        import aoctty.read_puzzle
 
         self.treemap = day_08.TreeMap(
-            aoctty.utils.read_puzzle.get_raw_puzzle(
+            aoctty.read_puzzle.get_raw_puzzle(
                 pathlib.Path(__file__).parent.joinpath("2022/2022_08.txt")
             )
         )
@@ -261,3 +275,77 @@ class TestDayTwelve(unittest.TestCase):
 
     def test_find_hiking_trail(self):
         self.assertEqual(self.elevationmap.find_hiking_trail(), 29)
+
+
+class TestDayThirteen(unittest.TestCase):
+    def setUp(self):
+        self.test_input = read_puzzle.get_raw_puzzle(
+            pathlib.Path(__file__).parent.joinpath("2022/2022_13.txt")
+        )
+
+    def test_assemble_packets(self):
+        self.assertEqual(
+            day_13.assemble_packets(self.test_input),
+            [
+                [1, 1, 3, 1, 1],
+                [1, 1, 5, 1, 1],
+                [[1], [2, 3, 4]],
+                [[1], 4],
+                [9],
+                [[8, 7, 6]],
+                [[4, 4], 4, 4],
+                [[4, 4], 4, 4, 4],
+                [7, 7, 7, 7],
+                [7, 7, 7],
+                [],
+                [3],
+                [[[]]],
+                [[]],
+                [1, [2, [3, [4, [5, 6, 7]]]], 8, 9],
+                [1, [2, [3, [4, [5, 6, 0]]]], 8, 9],
+            ],
+        )
+
+    def test_assemble_pairs_0(self):
+        packets = day_13.assemble_packets(self.test_input)
+        self.assertEqual(
+            day_13.assemble_pairs(packets)[0],
+            {"left": [1, 1, 3, 1, 1], "right": [1, 1, 5, 1, 1]},
+        )
+
+    def test_assemble_pairs_7(self):
+        packets = day_13.assemble_packets(self.test_input)
+        self.assertEqual(
+            day_13.assemble_pairs(packets)[7],
+            {
+                "left": [1, [2, [3, [4, [5, 6, 7]]]], 8, 9],
+                "right": [1, [2, [3, [4, [5, 6, 0]]]], 8, 9],
+            },
+        )
+
+    def test_ElfPacket_compare_0(self):
+        pairs = day_13.assemble_pairs(day_13.assemble_packets(self.test_input))
+
+        self.assertLess(
+            day_13.ElfPacket._compare(pairs[0]["left"], pairs[0]["right"]), 0
+        )
+
+    def test_ElfPacket_compare_3(self):
+        pairs = day_13.assemble_pairs(day_13.assemble_packets(self.test_input))
+
+        self.assertLess(
+            day_13.ElfPacket._compare(pairs[3]["left"], pairs[3]["right"]), 0
+        )
+
+    def test_ElfPacket_compare_7(self):
+        pairs = day_13.assemble_pairs(day_13.assemble_packets(self.test_input))
+
+        self.assertGreater(
+            day_13.ElfPacket._compare(pairs[7]["left"], pairs[7]["right"]), 0
+        )
+
+    def test_part_one(self):
+        self.assertEqual(day_13.part_one(day_13.assemble_packets(self.test_input)), 13)
+
+    def test_part_two(self):
+        self.assertEqual(day_13.part_two(day_13.assemble_packets(self.test_input)), 140)

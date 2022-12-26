@@ -130,3 +130,6 @@ dmypy.json
 
 # Visual Studio Code
 .vscode
+
+#Actual puzzle input
+/day[0-3][0-9].txt

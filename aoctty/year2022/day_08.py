@@ -56,8 +56,8 @@ class TreeMap:
 
 
 if __name__ == "__main__":
-    import aoctty.utils.read_puzzle
+    import aoctty.read_puzzle
 
-    treemap = TreeMap(aoctty.utils.read_puzzle.get_raw_puzzle("puzzle.txt"))
+    treemap = TreeMap(aoctty.read_puzzle.get_raw_puzzle("puzzle.txt"))
     print(treemap.count_visible())
     print(treemap.find_largest_view())

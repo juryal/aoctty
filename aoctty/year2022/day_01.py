@@ -29,10 +29,14 @@ def _part_two(list):
         top_three.append(-heapq.heappop(calories_heap))
     return sum(top_three)
 
+
 def part_one(path_string):
-    import aoctty.utils.read_puzzle
-    return(_part_one(aoctty.utils.read_puzzle.get_raw_puzzle(path_string)))
+    import aoctty.read_puzzle
+
+    return _part_one(aoctty.read_puzzle.get_raw_puzzle(path_string))
+
 
 def part_two(path_string):
-    import aoctty.utils.read_puzzle
-    return(_part_two(aoctty.utils.read_puzzle.get_raw_puzzle(path_string)))
+    import aoctty.read_puzzle
+
+    return _part_two(aoctty.read_puzzle.get_raw_puzzle(path_string))

@@ -1,1 +1,1 @@
-__all__ = ["year2022", "utils"]
+__all__ = ["year2022", "read_puzzle"]

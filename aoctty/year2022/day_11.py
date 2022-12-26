@@ -121,17 +121,15 @@ class KeepAway:
 
 
 if __name__ == "__main__":
-    import aoctty.utils.read_puzzle
+    import aoctty.read_puzzle
 
-    keepaway1 = KeepAway(aoctty.utils.read_puzzle.get_raw_puzzle("puzzle.txt"))
+    keepaway1 = KeepAway(aoctty.read_puzzle.get_raw_puzzle("puzzle.txt"))
 
     for x in range(20):
         keepaway1.run_round()
     print(keepaway1.monkey_business())
 
-    keepaway2 = KeepAway(
-        aoctty.utils.read_puzzle.get_raw_puzzle("puzzle.txt"), part_two=True
-    )
+    keepaway2 = KeepAway(aoctty.read_puzzle.get_raw_puzzle("puzzle.txt"), part_two=True)
     for x in range(10000):
         keepaway2.run_round()
     print(keepaway2.monkey_business())

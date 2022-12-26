@@ -1,6 +1,3 @@
-from math import copysign
-
-
 class Knot:
     def __init__(self):
         self.x_position = 0
@@ -68,9 +65,9 @@ class Rope:
 
 
 if __name__ == "__main__":
-    import aoctty.utils.read_puzzle
+    import aoctty.read_puzzle
 
     ropes = [Rope(), Rope(9)]
     for rope in ropes:
-        rope.move_head(aoctty.utils.read_puzzle.get_raw_puzzle("puzzle.txt"))
+        rope.move_head(aoctty.read_puzzle.get_raw_puzzle("puzzle.txt"))
         print(rope.count_positions())

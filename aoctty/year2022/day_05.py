@@ -58,12 +58,12 @@ def _part_two(puzzle: list[str]) -> str:
 
 
 def part_one(puzzle_path: str) -> int:
-    import aoctty.utils.read_puzzle
+    import aoctty.read_puzzle
 
-    return _part_one(aoctty.utils.read_puzzle.get_raw_puzzle(puzzle_path))
+    return _part_one(aoctty.read_puzzle.get_raw_puzzle(puzzle_path))
 
 
 def part_two(puzzle_path: str) -> int:
-    import aoctty.utils.read_puzzle
+    import aoctty.read_puzzle
 
-    return _part_two(aoctty.utils.read_puzzle.get_raw_puzzle(puzzle_path))
+    return _part_two(aoctty.read_puzzle.get_raw_puzzle(puzzle_path))

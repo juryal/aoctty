@@ -27,7 +27,7 @@ def shape_converter(shapes):
     elif shapes[1] == "Z":
         shift, points = 2, 6
     newshape = chr(((ord(shapes[0]) + shift) % 3 + 88))
-    return (shape_points(newshape) + points)
+    return shape_points(newshape) + points
 
 
 def _part_one(list):
@@ -43,10 +43,14 @@ def _part_two(list):
         total_points += shape_converter(line[0] + line[2])
     return total_points
 
+
 def part_one(path_string):
-    import aoctty.utils.read_puzzle
-    return(_part_one(aoctty.utils.read_puzzle.get_raw_puzzle(path_string)))
+    import aoctty.read_puzzle
+
+    return _part_one(aoctty.read_puzzle.get_raw_puzzle(path_string))
+
 
 def part_two(path_string):
-    import aoctty.utils.read_puzzle
-    return(_part_two(aoctty.utils.read_puzzle.get_raw_puzzle(path_string)))
+    import aoctty.read_puzzle
+
+    return _part_two(aoctty.read_puzzle.get_raw_puzzle(path_string))

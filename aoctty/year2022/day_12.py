@@ -99,8 +99,8 @@ class ElevationMap:
 
 
 if __name__ == "__main__":
-    import aoctty.utils.read_puzzle
+    import aoctty.read_puzzle
 
-    elevationmap = ElevationMap(aoctty.utils.read_puzzle.get_raw_puzzle("puzzle.txt"))
+    elevationmap = ElevationMap(aoctty.read_puzzle.get_raw_puzzle("puzzle.txt"))
     print(elevationmap.find_shortest_steps())
     print(elevationmap.find_hiking_trail())
