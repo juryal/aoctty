@@ -14,6 +14,7 @@ from aoctty.year2022 import (
     day_11,
     day_12,
     day_13,
+    day_14,
 )
 import aoctty.read_puzzle as read_puzzle
 
@@ -349,3 +350,93 @@ class TestDayThirteen(unittest.TestCase):
 
     def test_part_two(self):
         self.assertEqual(day_13.part_two(day_13.assemble_packets(self.test_input)), 140)
+
+
+class TestDayFourteen(unittest.TestCase):
+    def setUp(self):
+        self.test_input = read_puzzle.get_raw_puzzle(
+            pathlib.Path(__file__).parent.joinpath("2022/2022_14.txt")
+        )
+
+    def test_draw_rocks_vertical_short(self):
+        cavern = day_14.Cavern()
+        cavern.draw_rock([(1, 1), (1, 2)])
+        self.assertSetEqual(cavern.tiles, {(1, 1), (1, 2)})
+
+    def test_draw_rocks_horizontal_long(self):
+        cavern = day_14.Cavern()
+        cavern.draw_rock([(600, 11), (606, 11)])
+        self.assertSetEqual(
+            cavern.tiles,
+            {
+                (600, 11),
+                (601, 11),
+                (602, 11),
+                (603, 11),
+                (604, 11),
+                (605, 11),
+                (606, 11),
+            },
+        )
+
+    def test_draw_rocks_zig_zag(self):
+        cavern = day_14.Cavern()
+        cavern.draw_rock([(10, 100), (13, 100), (13, 96), (14, 96)])
+        self.assertSetEqual(
+            cavern.tiles,
+            {
+                (10, 100),
+                (11, 100),
+                (12, 100),
+                (13, 100),
+                (13, 99),
+                (13, 98),
+                (13, 97),
+                (13, 96),
+                (14, 96),
+            },
+        )
+
+    def test_set_deepest(self):
+        cavern = day_14.Cavern()
+        cavern.draw_rock([(5, 10), (5, 28)])
+        cavern.set_deepest()
+        self.assertEqual(cavern.deepest, 28)
+
+    def test_move_tile(self):
+        cavern = day_14.Cavern()
+        cavern.add_tile((100, 1))
+        cavern.move_tile((100, 1), (100, 2))
+        self.assertSetEqual(cavern.tiles, {(100, 2)})
+
+    def test_empty_cavern(self):
+        cavern = day_14.Cavern()
+        self.assertEqual(cavern.fill_sand(), 0)
+
+    def test_simple_cavern_1(self):
+        cavern = day_14.Cavern()
+        cavern.draw_rock([(499, 50), (501, 50)])
+        self.assertEqual(cavern.fill_sand(), 1)
+
+    def test_simple_cavern_2(self):
+        cavern = day_14.Cavern()
+        cavern.draw_rock([(498, 50), (502, 50)])
+        self.assertEqual(cavern.fill_sand(), 4)
+
+    def test_simple_cavern_3(self):
+        cavern = day_14.Cavern()
+        cavern.draw_rock([(498, 50), (502, 50)])
+        cavern.draw_rock([(498, 5), (498, 7), (501, 7), (501, 5)])
+        self.assertEqual(cavern.fill_sand(), 6)
+
+    def test_parser(self):
+        self.assertListEqual(
+            day_14.PuzzleParser.parse("498,4 -> 498,6 -> 496,6"),
+            [(498, 4), (498, 6), (496, 6)],
+        )
+
+    def test_part_one(self):
+        self.assertEqual(day_14.part_one(self.test_input), 24)
+
+    def test_part_two(self):
+        self.assertEqual(day_14.part_two(self.test_input), 93)
