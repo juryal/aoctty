@@ -15,6 +15,7 @@ from aoctty.year2022 import (
     day_12,
     day_13,
     day_14,
+    day_15,
 )
 import aoctty.read_puzzle as read_puzzle
 
@@ -440,3 +441,31 @@ class TestDayFourteen(unittest.TestCase):
 
     def test_part_two(self):
         self.assertEqual(day_14.part_two(self.test_input), 93)
+
+
+class TestDayFifteen(unittest.TestCase):
+    def setUp(self):
+        self.test_input = read_puzzle.get_raw_puzzle(
+            pathlib.Path(__file__).parent.joinpath("2022/2022_15.txt")
+        )
+
+    def test_simple_sensor_1(self):
+        empty_positions = dict()
+        sensor = day_15.Sensor((10, 10), (11, 12), empty_positions)
+        sensor.find_empty()
+        self.assertEqual(sum(len(x) for x in iter(empty_positions.values())), 25)
+
+    def test_simple_sensor_2(self):
+        empty_positions = dict()
+        sensor = day_15.Sensor((20, 21), (18, 19), empty_positions)
+        sensor.find_empty()
+
+        self.assertEqual(sum(len(x) for x in iter(empty_positions.values())), 41)
+
+    def test_parser(self):
+        self.assertListEqual(
+            day_15.Parser.parse(self.test_input[0]), [(2, 18), (-2, 15)]
+        )
+
+    def test_part_one(self):
+        self.assertEqual(day_15.part_one(self.test_input, 10), 26)
