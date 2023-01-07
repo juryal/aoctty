@@ -449,23 +449,13 @@ class TestDayFifteen(unittest.TestCase):
             pathlib.Path(__file__).parent.joinpath("2022/2022_15.txt")
         )
 
-    def test_simple_sensor_1(self):
-        empty_positions = dict()
-        sensor = day_15.Sensor((10, 10), (11, 12), empty_positions)
-        sensor.find_empty()
-        self.assertEqual(sum(len(x) for x in iter(empty_positions.values())), 25)
-
-    def test_simple_sensor_2(self):
-        empty_positions = dict()
-        sensor = day_15.Sensor((20, 21), (18, 19), empty_positions)
-        sensor.find_empty()
-
-        self.assertEqual(sum(len(x) for x in iter(empty_positions.values())), 41)
-
     def test_parser(self):
-        self.assertListEqual(
-            day_15.Parser.parse(self.test_input[0]), [(2, 18), (-2, 15)]
+        self.assertTupleEqual(
+            day_15.Parser.parse(self.test_input[0]), ((2, 18), (-2, 15))
         )
 
     def test_part_one(self):
         self.assertEqual(day_15.part_one(self.test_input, 10), 26)
+
+    def test_part_two(self):
+        self.assertEqual(day_15.part_two(self.test_input, 20), 56000011)
