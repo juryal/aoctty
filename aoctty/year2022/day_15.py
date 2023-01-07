@@ -39,6 +39,26 @@ class Sensor:
     def is_empty(self, coordinates: tuple[int, int]) -> bool:
         return self.is_inrange(coordinates) and coordinates != self.beacon
 
+    def get_outside_ring(self) -> list[tuple[int, int]]:
+        radius = self.distance + 1
+        coordinates: set[tuple[int, int]] = set()
+        for x in range(radius + 1):
+            vertical = radius - x
+            horizontal = x
+            coordinates.add(
+                (self.position[0] + horizontal, self.position[1] + vertical)
+            )
+            coordinates.add(
+                (self.position[0] + horizontal, self.position[1] - vertical)
+            )
+            coordinates.add(
+                (self.position[0] - horizontal, self.position[1] + vertical)
+            )
+            coordinates.add(
+                (self.position[0] - horizontal, self.position[1] - vertical)
+            )
+        return list(coordinates)
+
 
 def get_boundaries(sensors: Iterable[Sensor]) -> tuple[int, int, int, int]:
     highest_x, lowest_x, highest_y, lowest_y = 0, 0, 0, 0
@@ -65,17 +85,17 @@ def part_one(puzzle: list[str], row: int) -> int:
 
 def part_two(puzzle: list[str], limit: int) -> int:
     sensors = tuple(Sensor(*Parser.parse(x)) for x in puzzle)
-    boundaries = get_boundaries(sensors)
-    for column in range(max(0, boundaries[1]), min(boundaries[0] + 1, limit)):
-        for row in range(max(0, boundaries[3]), min(boundaries[2], limit)):
-            coordinates = (column, row)
-            eligible = True
-            for sensor in sensors:
-                if sensor.is_inrange(coordinates):
-                    eligible = False
-                    break
-            if eligible is True:
-                return column * 4000000 + row
+    for sensor in sensors:
+        ring = [
+            x
+            for x in sensor.get_outside_ring()
+            if all(y >= 0 and y <= limit for y in x)
+        ]
+        for coordinate in ring:
+            try:
+                next(x for x in sensors if x.is_inrange(coordinate))
+            except StopIteration:
+                return (coordinate[0] * 4000000) + coordinate[1]
     return 0
 
 

@@ -454,6 +454,14 @@ class TestDayFifteen(unittest.TestCase):
             day_15.Parser.parse(self.test_input[0]), ((2, 18), (-2, 15))
         )
 
+    def test_get_outside_ring_1(self):
+        sensor = day_15.Sensor((0, 0), (1, 1))
+        self.assertEqual(len(sensor.get_outside_ring()), 12)
+
+    def test_get_outside_ring_2(self):
+        sensor = day_15.Sensor((0, 0), (2, 2))
+        self.assertIn((3, 2), sensor.get_outside_ring())
+
     def test_part_one(self):
         self.assertEqual(day_15.part_one(self.test_input, 10), 26)
 
