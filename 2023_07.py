@@ -60,6 +60,37 @@ class camel_hand:
         return f"{self.hand}"
 
 
+class wildcard_camel_hand(camel_hand):
+    face_card = {"T": 10, "J": 1, "Q": 12, "K": 13, "A": 14}
+
+    def get_hand_type(self):
+        cards = {}
+        for card in self.hand:
+            cards[card] = cards.setdefault(card, 0) + 1
+        wildcards = 0
+        if len(cards) > 1:
+            wildcards = cards.pop("J", 0)
+        cards = sorted(cards.items(), key=lambda x: x[1], reverse=True)
+        cards[0] = (cards[0][0], cards[0][1] + wildcards)
+        match cards[0][1]:
+            case 5:
+                return self.base**5 * 7
+            case 4:
+                return self.base**5 * 6
+            case 3:
+                if cards[1][1] == 2:
+                    return self.base**5 * 5
+                else:
+                    return self.base**5 * 4
+            case 2:
+                if cards[1][1] == 2:
+                    return self.base**5 * 3
+                else:
+                    return self.base**5 * 2
+            case 1:
+                return self.base**5 * 1
+
+
 def part_one(puzzle_list: list[str]) -> int:
     hands = [(camel_hand(x.split()[0]), int(x.split()[1])) for x in puzzle_list]
     hands.sort(key=lambda x: x[0])
@@ -69,4 +100,16 @@ def part_one(puzzle_list: list[str]) -> int:
     return running_total
 
 
+def part_two(puzzle_list: list[str]) -> int:
+    hands = [
+        (wildcard_camel_hand(x.split()[0]), int(x.split()[1])) for x in puzzle_list
+    ]
+    hands.sort(key=lambda x: x[0])
+    running_total = 0
+    for idx, hand in enumerate(hands):
+        running_total += hand[1] * (idx + 1)
+    return running_total
+
+
 print(part_one(get_raw_puzzle("2023_07_puzzle.txt")))
+print(part_two(get_raw_puzzle("2023_07_puzzle.txt")))
